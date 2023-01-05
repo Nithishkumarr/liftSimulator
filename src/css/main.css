@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
+html,
+body {
+  font-size: larger;
+}
+body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Dosis", sans-serif;
+  width: 80%;
+  background-color: aquamarine;
+}
+hr {
+  width: 75%;
+  border: 1px solid black;
+}
+
+.input-area {
+  height: 70vh;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  align-items: center;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 500px;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  font-size: 1rem;
+  font-weight: 300;
+  height: 1rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.action-btn {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.btn {
+  background-color: rgb(0, 128, 32);
+  color: azure;
+}
+.btn:hover {
+  background: rgb(182, 10, 10);
+}
+
+.input-btn button {
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  border-radius: 7px;
+  background-color: rgb(169, 175, 126);
+}
+.input-btn button:hover {
+  background-color: rgba(186, 20, 20, 0.677);
+}
+
+@media (width <= 300px) {
+  :root {
+    --floor-height: 60px;
+  }
+  html {
+    font-size: 10px;
+  }
+
+  .input-group {
+    font-size: 5px;
+    width: 50%;
+  }
+  .input {
+    width: auto;
+    align-self: auto;
+  }
+}

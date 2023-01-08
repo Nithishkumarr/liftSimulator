@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,25 +14,36 @@
       <h1>Lift Simulation</h1>
       <div class="input-group">
         <label class="label">Floor Number</label>
-        <input name="floor" id="floor" type="number" value="" placeholder="min 1 max 100">
-        <br>
-        <label class="label">Lift Number</label>
-        <input name="lift" id="lift" type="number" value="" placeholder="min 1 max 10">
+        <input name="floor" id="floor" type="number">
       </div>
-      <br>
+      <div class="input-group">
+        <label class="label">Lift Number</label>
+        <input name="lift" id="lift" type="number">
+      </div>
       <div class="input-btn">
         <button type="submit" id="submit">SUBMIT </button>
       </div>
+    </div>
 
-      <br>
-      <div class="output-area hide">
-        <div class="action-btn">
-          <button class="btn" id="back">BACK</button>
-          <button class="btn" id="reset">RESET</button>
-        </div>
+    <div class="output-area hide">
+      <div class="action-btn">
+        <button class="btn" id="back">BACK</button>
+        <button class="btn" id="reset">RESET</button>
       </div>
-      <div class="building">
 
+      <div class="building">
+        <!-- <div class="floor">
+                         <div class="lift-buttons">
+                              <button id="up" class="lift-button">⬆️</button>
+                              <button id="down" class="lift-button">⬇️</button>
+                         </div>
+                         <div class="lift-area">
+                              <div class="lift">
+                                   <div class="lift-door door-left"></div>
+                                   <div class="lift-door door-right"></div>
+                              </div>
+                         </div>
+                    </div> -->
       </div>
     </div>
 

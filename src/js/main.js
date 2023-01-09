@@ -131,7 +131,7 @@ submitBTN.addEventListener("click", (e) => {
             );
 
             // Lift transform
-            lift.style.transform = `translateY(${requestedFloorNo * -128}px)`;
+            lift.style.transform = `translateY(${requestedFloorNo * -130}px)`;
             lift.style.transition = `transform ${travelDuration}s ease-in-out`;
             lift.dataset.isMoving = true;
             e.target.classList.add("active-btn");
@@ -206,6 +206,6 @@ resetBTN.addEventListener("click", (e) => {
   // remove lift animation
   const liftAnimation = document.getElementsByClassName("lift");
   for (let i = 0; i < liftAnimation.length; i++) {
-    liftAnimation[i].style.transition = `transform 0s ease-in-out`;
+    liftAnimation[i].style.transition = `transform 3s ease-in-out`;
   }
 });

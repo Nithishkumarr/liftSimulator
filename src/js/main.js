@@ -17,6 +17,8 @@ let floor = 0;
 let lift = 0;
 let freeLift = [];
 let busyLift = [];
+let queue = [];
+let moving = false;
 
 floorInput.addEventListener("change", (e) => {
   floor = e.target.value;
@@ -109,65 +111,92 @@ submitBTN.addEventListener("click", (e) => {
 
   // Event Listener for Lift Button
   const moveBTN = document.getElementsByClassName("move");
+
   for (let i = 0; i < moveBTN.length; i++) {
     moveBTN[i].addEventListener("click", (e) => {
-      // Move Lift Function
-      function moveLift(e) {
-        e.preventDefault();
-        const floorDiv = e.target.parentNode.parentNode;
-        var [x, requestedFloorNo] = floorDiv.id.split("floor");
-        for (let i = 0; i < freeLift.length; i++) {
-          const lift = document.getElementById(`lift${freeLift[0]}`);
-          if (lift.dataset.isMoving === "false") {
-            let floorCalled = Math.abs(
-              requestedFloorNo - lift.dataset.currentFloor
-            );
-            let travelDuration = floorCalled * 2;
-            let gateOpenDuration = travelDuration * 1000;
-            let gateCloseDuration = gateOpenDuration + 2600;
-            let resetLiftDuration = gateCloseDuration + 1000;
-            console.log(
-              `Lift come from ${lift.dataset.currentFloor} to ${requestedFloorNo} in ${travelDuration} seconds`
-            );
+      function runEveryTime() {
+        if (moving == false) {
+          moving = true;
+          const internval = setInterval(() => {
+            const temp = queue.shift();
+            // 1st  top
+            // 2nd
+            //
+            // Move Lift Function
+            function moveLift(e) {
+              e.preventDefault();
+              const floorDiv = e.target.parentNode.parentNode;
+              var [x, requestedFloorNo] = floorDiv.id.split("floor");
 
-            // Lift transform
-            lift.style.transform = `translateY(${requestedFloorNo * -130}px)`;
-            lift.style.transition = `transform ${travelDuration}s ease-in-out`;
-            lift.dataset.isMoving = true;
-            e.target.classList.add("active-btn");
+              for (let i = 0; i < freeLift.length; i++) {
+                const lift = document.getElementById(`lift${freeLift[0]}`);
+                var isMoving = lift.dataset.isMoving;
+                if (isMoving === "false") {
+                  let floorCalled = Math.abs(
+                    requestedFloorNo - lift.dataset.currentFloor
+                  );
+                  ////
 
-            // Lift Gate
-            let lGate =
-              document.getElementsByClassName("door-left")[freeLift[0]];
-            let rGate =
-              document.getElementsByClassName("door-right")[freeLift[0]];
-            setTimeout(() => {
-              lGate.classList.add("animation");
-              rGate.classList.add("animation");
-              console.log("Door Open");
-            }, `${gateOpenDuration}`);
+                  ////
+                  let travelDuration = floorCalled * 2;
+                  let gateOpenDuration = travelDuration * 1000;
+                  let gateCloseDuration = gateOpenDuration + 2600;
+                  let resetLiftDuration = gateCloseDuration + 1000;
+                  console.log(
+                    `Lift come from ${lift.dataset.currentFloor} to ${requestedFloorNo} in ${travelDuration} seconds`
+                  );
 
-            setTimeout(() => {
-              lGate.classList.remove("animation");
-              rGate.classList.remove("animation");
-              e.target.classList.remove("active-btn");
-              console.log("Door close");
-            }, `${gateCloseDuration}`);
+                  // Lift transform
+                  lift.style.transform = `translateY(${
+                    requestedFloorNo * -130
+                  }px)`;
+                  lift.style.transition = `transform ${travelDuration}s ease-in-out`;
+                  lift.dataset.isMoving = true;
+                  e.target.classList.add("active-btn");
 
-            freeLift.shift(busyLift.push(freeLift[0]));
-            setTimeout(() => {
-              freeLift.push(busyLift.shift());
-              freeLift.sort();
-              lift.dataset.isMoving = false;
-              console.log("Lift Reset");
-            }, `${resetLiftDuration}`);
-            lift.setAttribute("data-current-floor", requestedFloorNo);
-            break;
-          }
+                  // Lift Gate
+                  let lGate =
+                    document.getElementsByClassName("door-left")[freeLift[0]];
+                  let rGate =
+                    document.getElementsByClassName("door-right")[freeLift[0]];
+                  setTimeout(() => {
+                    lGate.classList.add("animation");
+                    rGate.classList.add("animation");
+                    console.log("Door Open");
+                  }, `${gateOpenDuration}`);
+
+                  setTimeout(() => {
+                    lGate.classList.remove("animation");
+                    rGate.classList.remove("animation");
+                    e.target.classList.remove("active-btn");
+                    console.log("Door close");
+                  }, `${gateCloseDuration}`);
+
+                  freeLift.shift(busyLift.push(freeLift[0]));
+                  setTimeout(() => {
+                    freeLift.push(busyLift.shift());
+                    freeLift.sort();
+                    lift.dataset.isMoving = false;
+                    console.log("Lift Reset");
+                  }, `${resetLiftDuration}`);
+                  lift.setAttribute("data-current-floor", requestedFloorNo);
+                  break;
+                }
+              }
+              moveLift(e);
+            }
+
+            //
+            if (queue.length == 0) {
+              clearlInterval(internval);
+              moving = false;
+            }
+          }, []);
+        } else {
         }
       }
-      moveLift(e);
     });
+    runEveryTime();
   }
 });
 

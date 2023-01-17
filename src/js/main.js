@@ -195,8 +195,8 @@ submitBTN.addEventListener("click", (e) => {
         } else {
         }
       }
+      runEveryTime();
     });
-    runEveryTime();
   }
 });
 
